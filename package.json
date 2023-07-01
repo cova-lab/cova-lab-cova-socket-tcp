@@ -1,0 +1,97 @@
+{
+  "name": "cova",
+  "version": "1.1.0",
+  "description": "cova - a socket client with rest api",
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json && tsc-alias",
+    "build:release": "rimraf dist && tsc -p tsconfig.release.json && tsc-alias -p tsconfig.release.json",
+    "bin": "rimraf bin && npm run build:release && ./bin.sh",
+    "release": "npm run build:release && npm publish",
+    "lib:check": "ncu",
+    "lib:upgrade": "ncu -u && npm install",
+    "unlink": "npm unlink cova -g",
+    "ws": "ts-node ./test/server/main/ws.ts",
+    "io": "ts-node ./test/server/main/io.ts",
+    "tcp": "ts-node ./test/server/main/tcp.ts",
+    "unix": "ts-node ./test/server/main/unix.ts",
+    "test": "jest --config jest.json --runInBand",
+    "test:cov": "jest --config jest.json --runInBand --coverage",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts'",
+    "link": "npm run build:release && npm link"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cova-lab/cova-lab-cova-socket-tcp.git"
+  },
+  "keywords": [
+    "cova",
+    "socket-client",
+    "websocket-client",
+    "socketio-client",
+    "socket.io-client",
+    "tcp-client",
+    "unix-socket-client"
+  ],
+  "author": "Ahmed Khaled <ahmedkhaled4d@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cova-lab/cova-lab-cova-socket-tcp/issues"
+  },
+  "homepage": "https://github.com/cova-lab/cova-lab-cova-socket-tcp#readme",
+  "devDependencies": {
+    "@types/express": "4.17.13",
+    "@types/jest": "28.1.4",
+    "@types/node": "18.0.3",
+    "@types/supertest": "2.0.12",
+    "@types/validator": "13.7.4",
+    "@types/ws": "8.5.3",
+    "@typescript-eslint/eslint-plugin": "5.30.5",
+    "@typescript-eslint/parser": "5.30.5",
+    "eslint": "8.19.0",
+    "jest": "28.1.2",
+    "jest-junit": "14.0.0",
+    "jest-sonar-reporter": "2.0.0",
+    "module-alias": "2.2.2",
+    "npm-check-updates": "15.2.6",
+    "pkg": "5.8.0",
+    "rimraf": "3.0.2",
+    "socket.io": "4.5.1",
+    "supertest": "6.2.4",
+    "ts-jest": "28.0.5",
+    "ts-node": "10.9.1",
+    "tsc-alias": "1.6.11",
+    "typescript": "4.7.4"
+  },
+  "dependencies": {
+    "@nestjs/common": "9.0.1",
+    "@nestjs/core": "9.0.1",
+    "@nestjs/platform-express": "9.0.1",
+    "@nestjs/swagger": "6.0.1",
+    "chalk": "4.1.2",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.13.2",
+    "commander": "9.3.0",
+    "moment": "2.29.4",
+    "ora": "5.4.1",
+    "reflect-metadata": "0.1.13",
+    "rxjs": "7.5.5",
+    "socket.io-client": "4.5.1",
+    "swagger-ui-express": "4.4.0",
+    "ws": "8.8.0"
+  },
+  "_moduleAliases": {
+    "@cova/core": "src/core",
+    "@cova/api": "src/api",
+    "@cova/test": "test"
+  }
+}

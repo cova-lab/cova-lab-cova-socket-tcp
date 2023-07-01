@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "strictPropertyInitialization": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "declaration": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2015",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@cova/core/*": ["src/core/*"],
+      "@cova/core": ["src/core"],
+      "@cova/api/*": ["src/api/*"],
+      "@cova/api": ["src/api"],
+      "@cova/test/*": ["test/*"],
+      "@cova/test": ["test"]
+    },
+    "types": ["reflect-metadata", "jest", "node"],
+    "lib": ["ESNext", "dom"]
+  },
+  "include": ["./src", "./test"]
+}
