@@ -11,11 +11,26 @@ export class BinaryStore implements IBinaryStore {
     this.buffer$ = new ReplaySubject(100);
     this.timer = setInterval(() => this.add(Buffer.alloc(0)), 1000);
   }
-  listen() {
-    throw new Error("Method not implemented.");
+
+  listen(): Observable<Buffer> {
+    return this.buffer$;
   }
-  add(data: Buffer): void {
-    throw new Error("Method not implemented.");
+
+  add(chunk: Buffer): void {
+    if (this.chunks.length === 0) {
+      return this.pushIfNecessary(chunk);
+    }
+
+    const last = this.chunks[this.chunks.length - 1];
+
+    if (Date.now() - last.date > 100) {
+      const buffer = Buffer.concat(this.chunks.map((ch) => ch.chunk));
+
+      this.chunks = [];
+      this.buffer$.next(buffer);
+    }
+
+    this.pushIfNecessary(chunk);
   }
 
   close(): void {

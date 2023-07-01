@@ -116,6 +116,41 @@ export class SocketIOClient implements ISocketClient {
     }
   }
 
+  async sendData<TData>(
+    data: TData,
+    event: string = "*"
+  ): Promise<SocketSendReply> {
+    const parsed = MessageUtil.parse(data);
+    const eventMessage: AnyObject = {
+      format: parsed.format,
+      event: event,
+      data: parsed.data,
+    };
+
+    return this.emit(data, event, eventMessage);
+  }
+
+  async sendBytes(
+    bytes: number[],
+    event: string = "*"
+  ): Promise<SocketSendReply> {
+    const encoding = this._options.binaryEncoding;
+    const packed = MessageUtil.packToBuffer(bytes);
+
+    const eventMessage: AnyObject = {
+      format: packed.format,
+      size: bytes.length,
+      event: event,
+      data: bytes,
+    };
+
+    if (encoding) {
+      eventMessage[encoding] = packed.data.toString(encoding);
+    }
+
+    return this.emit(packed.data, event, eventMessage);
+  }
+
   close(): void {
     this.clear();
   }
